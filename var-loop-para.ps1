@@ -25,4 +25,4 @@
 # You can omit the names from the command line. For example:
 	.\setupEnvironment.ps1 5"East US"
 # Inside the script, you'll rely on position for matching when the parameters are unnamed:
-param([int]$size, [string]$location)
+	param([int]$size, [string]$location)
