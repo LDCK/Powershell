@@ -1,3 +1,6 @@
+#Get mailbox permissions for user@company.com
+Get-MailboxPermission -identity "user@company.com"
+
 #Get current Calendar permissions for user@company.com calendar
 Get-MailboxFolderPermission -identity "user@company.com:\Calendar"
 
