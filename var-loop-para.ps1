@@ -1,11 +1,11 @@
 ﻿# Variables
 # Use $ to declare a variable and = to assign a value. For example:
-	$loc= "East US"
- 	$iterations= 3
+	$loc = "East US"
+ 	$iterations = 3
 # Variables can hold objects. For example, the following definition sets the adminCredential variable to the object returned by the Get-Credential cmdlet.
-	$adminCredential= Get-Credential
+	$adminCredential = Get-Credential
 #To obtain the value stored in a variable, use the $ prefix and its name, as in the following:
-	$loc= "East US
+	$loc = "East US
  	"New-AzResourceGroup -Name"MyResourceGroup" -Location$loc
 
 # Loops
