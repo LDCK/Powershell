@@ -28,13 +28,13 @@ This is beneficial for:
 PS > $my_string_variable.GetType().Name
 PS > String
 
+
 # ----------
 Constrained Variables
 # ----------
 # A constrained variable is when a certain type can be enforced onto a variable via casting. 
 # To create a constrained variable, specify the type in brackets before the variable reference.
 Constrained variables are used when you want a certain type of answer, a number, text, true/false
-Useful when 
 
 PS > [Int]$age = 25
 PS > $age
@@ -49,13 +49,28 @@ $i = $j = $k = 0
 # Multiple values
 $number, $color, $bool = 25, "red", $false
 
+
 # ----------
 Environment Variables
 # ----------
 # Environment Variables store information related to the current environment,
 # like the Operating System and user sessions, and like your current terminal.
-# They are global Variables, meaning we can access them across commands and programs.
-# The operating system usually creates them, but we can also use them to configure our production environment. 
+# They are global Variables, meaning you can access them across commands and programs.
+# The operating system usually creates them, but you can also use them to configure your production environment. 
 
+# Print all environment variables for the OS
 Get-ChildItem Env:
+# Print a specific environment variable
+(Get-ChildItem Env:**NAME**).Value
+
+# Create an Environment Variable. Environment variable names are usually in CAPS
+$Env:**NAME** = "VALUE"
+
+#Write a new Environment variable
+$Env:**NAME** = "VALUE"
+
+
+# ----------
+Arithmetic Operators
+# ----------
 
