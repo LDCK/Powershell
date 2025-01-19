@@ -5,8 +5,8 @@ Get-MailboxPermission -identity "user@company.com"
 Get-MailboxFolderPermission -identity "user@company.com:\Calendar"
 
 #Add calendar permissions for user@company.com calendar
-Add-MailboxFolderPermission -identity "user@company.com:\Calendar" -user "John.Legend" -AccessRights Author
+Add-MailboxFolderPermission -identity "user@company.com:\Calendar" -user "John.Legend@company.com" -AccessRights Author
 
 #Update the User "John.Legend" to have Publishing Editor rights to user@company.com calendar.
 ##This is used when the user already has calendar access but the access level needs to be changed.
-Set-MailboxFolderPermission -identity "user@company.com:\Calendar" -user "John.Legend" -AccessRights PublishingEditor
+Set-MailboxFolderPermission -identity "user@company.com:\Calendar" -user "John.Legend@company.com" -AccessRights PublishingEditor
