@@ -18,3 +18,6 @@ Get-History
 Write-Host "Hello, World!"
 # Run script from Powershell
 .\HelloWorld.ps1
+
+# Take user input from PS with Read-Host and -Prompt the user to enter a variable
+Read-Host -Prompt "Enter a variable"
