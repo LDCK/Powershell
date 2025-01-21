@@ -24,8 +24,8 @@ Get-Member -InputObject "Codecademy"
 # Show all properties and methods of the variable $name
 $name | Get-Member
 
-Show only the properties of the variable $name.
+# Show only the properties of the variable $name.
 $name | Get-Member -MemberType Property
 
-Use the Length property to get the length of the $name variable.
+# Use the Length property to get the length of the $name variable.
 $name.Length
