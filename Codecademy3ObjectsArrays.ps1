@@ -1,6 +1,8 @@
 # ----------
 Objects
 # ----------
+Everything in PowerShell is an object. Object properties are characteristics that describe the object.
+Object methods describe how to use the object or actions an object can take.
 # An object is a combination of Variables and Functions. Each object has the following:
 	# • Properties: variables that describe the object (characteristics)
 	# • Methods: functions that describe how to use the object (actions)
@@ -98,14 +100,14 @@ $dog.speak()
 # For -Value you enclose a line of code, which outputs the string Woof!.
 
 Example
+# 1. Create a custom object named $person using the New-Object cmdlet.
+# 2. Use Add-Member cmdlet to add a property to the $person object called FirstName with my name
+# 3. Add a method to the $person object. Name the method "greeting" and have the enclosed line of code output a greeting string using Write-Host
+# 4. Call the newly-added .greeting() method of the $person object.
 $person = New-Object -TypeName PSCustomObject
 $person | Add-Member -MemberType NoteProperty -Name "FirstName" -Value "Lee"
 $person | Add-Member -MemberType ScriptMethod -Name "greeting" -Value {Write-Host "Hello, World!"}
 $person.greeting()
-1. Create a custom object named $person using the New-Object cmdlet.
-2. Use Add-Member cmdlet to add a property to the $person object called FirstName with my name
-3. Add a method to the $person object. Name the method "greeting" and have the enclosed line of code output a greeting string using Write-Host
-4. Call the newly-added .greeting() method of the $person object.
 
 
 # ----------
@@ -124,3 +126,192 @@ $dog = [PSCustomObject]@{
 The [PSCustomObject] casts a type onto the hashtable, just as we constrain variables.
 Creating a custom object this way is identical to the previous object creation process.
 It is a little less work and supports more readable code.
+
+
+# ----------
+Arrays
+# ----------
+
+Arrays are a data structure that holds a collection of items. Items can be of the same type or multiple types.
+Think of arrays as a variable that can hold more than one value. Consider the example below:
+
+$my_arr = 25, "Codecademy", 1, $False
+
+my_arr is an array that holds the integer 25, the string Codecademy,
+the integer 1, and the boolean False – in that order. 
+Referencing the variable will output each item one at a time.
+PS > $my_arr
+25
+Codecademy
+1
+False
+
+Separating items by commas is the simplest way to create an array, but it’s not the only way.
+Another way is to use the array subexpression operator @( ).
+Anything placed within the parentheses is treated as an item of the array. 
+It can be anything from a single element to output from commands. The following examples best illustrate its usage.
+
+$arr_1 = @($True, 5, (Get-Date).DateTime) # 3 elements
+$arr_2 = @( )                             # Empty Array
+$arr_3 = @(                               # Multi-line Array
+    "Uno"
+    "Dos"
+    "Tres"
+) 
+
+
+# ----------
+Accessing Array items
+# ----------
+
+Indexing
+The easiest way to access an item from an array is to use its index number.
+An index is the position number of an item. Consider the example below:
+
+$colors = "red", "yellow", "black", "blue"
+#.          0       1         2       3
+
+The numbers underneath the items represent their indices. An array’s indices always start at 0.
+If we want to access black, for example, we must offset – or skip – 2 times.
+
+$colors[2]
+black
+
+Each array object has a Length property that gives us the number of items in that array.
+The property Count will return the same value.
+
+Updating Items
+
+We can also update items by utilizing indices. To change the color yellow to brown, for example:
+PS > $colors[1] = "brown"
+
+
+Special Index Tricks
+PowerShell offers much more flexibility when indexing items such as
+
+Multiple indices: separate indices with commas to print multiple items:
+$colors[0,2]
+red
+black
+The example above displays the values at index 0 and 2.
+
+Range operator ..: print all items between two indices:
+$colors[1..3]
+brown
+black
+blue
+The above example displays the values from index 1 to index 3.
+
+Reverse range: use range operator from a higher index to a lower index to print items in reverse order (inclusive)
+PS > $colors[2..1]
+black
+brown
+The above example displays the values from index 2 to index 1.
+
+Negative indices: items are referenced in reverse order where the last item has index -1
+PS > $colors[-1]
+blue
+The above example displays the value in the last index, 3.
+
+
+Iteration
+
+Each array object has a method called ForEach that allows us to perform the same action on each array item.
+We can use the variable PSItem or underscore _ to refer to each item in the array.
+
+PS > $colors.ForEach({ $PSItem.Length })
+3
+5
+5
+4
+
+The example above is printing the length of each string of our colors array.
+red has a length of 3, brown is 5, and so on.
+
+
+Operators for Arrays
+
+Some of the operators that work on variables also work on arrays.
+
+Adding Arrays
+The addition operator + concatenates – or combines – two arrays.
+
+PS > $fibonacci = 0, 1, 1, 2, 3, 5
+PS > $fib_2 = 8, 13, 21, 34
+PS > $fibonacci + $fib_2
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+
+Multiplying Arrays
+The multiplication operator * copies the array a specified number of times.
+
+PS > $fib_2 * 2
+8
+13
+21
+34
+8
+13
+21
+34
+
+We could also use the addition += or multiplication *= assignment operators to assign the resulting array
+back to the main array. 
+
+
+Containment Operators
+Containment operators check whether or not an item is in an array and returns a boolean. There are four operators:
+    -contains: <array> -contains <item>
+    -notcontains: <array> -notcontains <item>
+    -in: <item> -in <array>
+    -notin: <item> -notin <array>
+
+Examples:
+PS > $fibonacci -contains 4
+False
+PS > 5 -in $fibonacci
+True
+
+The -contains and -in operators do not differ in functionality, only the order of the operands.
+
+-join
+The -join operator combines the items in an array into a string separated by a character or a string.
+Example:
+PS > $fibonacci = 0, 1, 1, 2, 3, 5
+PS > $fibonacci = $fibonacci -join "->"
+PS > $fibonacci
+0->1->1->2->3->5
+PS > $fibonacci.GetType().Name
+String
+
+
+Strongly Typed Arrays
+
+Similar to how we can force a type on a variable to create constrained variables. 
+We can force a type onto an array so that each item has to adhere to that type.
+For example, if we wanted to force an array only to have strings, we can use the following notation:
+
+PS > [String[]]$fruits = "apple", "banana", "kiwi"
+
+Arrays of Objects
+
+Arrays can hold objects too. Consider the following array:
+$dogs_arr = @(
+    [PSCustomObject]@{Name = 'Rufus'; Age = 10}
+    [PSCustomObject]@{Name = 'Miku'; Age = 2}
+)
+
+We utilize the multiline format of creating an array and hashtables to populate the array with dog objects.
+We can then access objects individually, including their properties and methods.
+
+PS > $dogs_arr.ForEach({ $_.Name + " is " + $_.Age + " years old."})
+Rufus is 10 years old.
+Miku is 2 years old.
