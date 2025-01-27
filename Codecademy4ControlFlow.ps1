@@ -30,7 +30,6 @@ The above example will output A True Statement! since $myVar does equal 2.
 The code will finish with the output, After the if statement.
 
 if statements consist of two parts:
-
     The conditional statement inside the parentheses, $myVar -eq 2,
     The body inside the curly brackets is the code to run if the condition is true, A True Statement!
 
@@ -175,3 +174,140 @@ $i is 2
 
 Once $i equals 3, the code will no longer execute. 
 
+
+# ----------
+
+Loops - foreach
+
+Arrays hold multiple data points, and loops are a great way to iterate over the data with repetitive actions. 
+Just like the foreach method of arrays, the foreach loop is a way to loop through arrays to access and process 
+each array element.
+
+$array = 51,12,31,4,15
+foreach ($element in $array) {
+  if ($element % 2 -eq 0) {
+    Write-Host $element "is" Even
+  } else {
+    Write-Host $element "is" Odd
+  }
+}
+
+The foreach keyword is used in the above example, followed by parentheses.
+Inside the parentheses, the expression $element in $array tells the loop to iterate through each element of 
+$array and set the value of $element to the values in the array. The code output is:
+
+51 is Odd
+12 is Even
+31 is Odd
+4 is Even
+15 is Odd
+
+As shown above, in the first loop iteration, $element is assigned the first element in the array, 51.
+In each iteration to follow, $element is updated with the next $array value.
+
+
+# ----------
+
+Loops - while
+
+while loops run their body of code while a defined condition is true. This is similar to for loops, 
+but more control is put in our hands regarding what variable is used in the condition and how the variable is 
+updated in the loop.
+
+$counter = 0
+while ($counter -lt 3) {
+  $counter++
+  Write-Host "Be sure to update counter"
+}
+
+The while loop above uses the condition $counter -lt 3. If $counter is less than 3, 
+the loop will keep iterating and outputting the string. 
+Our job is to include the line $counter++ inside the while body to update $counter and eventually stop the loop. 
+Also, note that we are using a variable defined outside the loop, which is not usually the case with for loops.
+
+Beware of infinite loops! If the line $counter++ is omitted from the loop body, 
+the expression $counter -lt 3 will always be true, and the loop will never terminate or iterate infinitely.
+
+
+# ----------
+
+Loops - do..while, do..until
+
+When you want the behavior of a while loop and would like 1 iteration to happen before any condition is checked,
+the do…while and do…until loops are a good choice.
+
+$answer = 4
+do {
+  $input = Read-Host "Guess my number"
+} while ($input -ne $answer)
+Write-Host "Correct!"
+
+The above example starts the loop with the keyword do and the loop body will execute once.
+After one iteration, the condition $input -ne $answer defined after the keyword while will be checked.
+If the condition is true, the loop will continue.
+
+The do…while allows Read-Host to execute and set the value of $input, which is then checked after the first loop.
+The output of the above example could look like this:
+
+Guess my number: 5
+Guess my number: 3
+Guess my number: 4
+Correct!
+
+do…until is the same as do…while except when the condition is true, the loop will exit.
+The above example with a do…until will use the -eq operator in the condition.
+
+$answer = 4
+do {
+  $input = Read-Host "Guess my number"
+} until ($input -eq $answer)
+Write-Host "Correct!"
+
+Remember that these loops are helpful when you want at least one loop iteration to happen,
+regardless of your code state. 
+
+
+# ----------
+
+Loops - break, continue
+
+Sometimes we want to exit the loop early or skip an iteration. This is what the break and continue commands are for.
+
+break will exit the loop it is executed in:
+
+for ($i = 0; $i -lt 5; $i++) {
+  if ($i -eq 2) {
+    break
+  }
+  Write-Host $i
+}
+
+The above for loop is defined to loop 5 times: $i starts at 0, and each loop will fire from $i equals 0 through 4. 
+Inside the loop body is an if statement that checks if $i is 2, and if so, break. 
+The following output shows that the loop exits once $i equals 2.
+
+0
+1
+
+continue will skip a loop iteration:
+
+for ($i = 0; $i -lt 5; $i++) {
+  if ($i -eq 2) {
+    continue
+  }
+  Write-Host $i
+}
+
+Using the first example but replacing break with continue causes the loop to finish through the condition,
+$i -lt 5, but skip the iteration when $i equals 2. The output shows this:
+
+0
+1
+3
+4
+
+As we can see, the for loop finishes its iterations but does not output 2.
+
+break and continue are helpful when there are exceptional cases that need to be considered when looping. 
+Your loop condition may cover some or most situations for your code execution, 
+but break and continue can add extra behavior if necessary.
